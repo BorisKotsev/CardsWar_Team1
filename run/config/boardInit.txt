@@ -1,1 +1,1 @@
-BackgoundImg: background.bmp
+BackgoundImg: background1.bmp

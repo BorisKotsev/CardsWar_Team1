@@ -26,6 +26,7 @@
     <ClInclude Include="..\include\Presenter.h" />
     <ClInclude Include="..\include\SoundManager.h" />
     <ClInclude Include="..\include\World.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Board.cpp" />
@@ -35,6 +36,7 @@
     <ClCompile Include="..\src\Presenter.cpp" />
     <ClCompile Include="..\src\SoundManager.cpp" />
     <ClCompile Include="..\src\World.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
