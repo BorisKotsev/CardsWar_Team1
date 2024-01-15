@@ -2,6 +2,8 @@
 
 #include "Engine.h"
 
+//dali raboti?
+
 class Board
 {
 public:
