@@ -48,26 +48,26 @@ void Player::drawFromDeck()
 SDL_Texture* Player::RemoveFromDeck()
 {
 	if (pCards.empty()) {
-		return nullptr;
+		return nullptr; // if empty just return a nullptr
 	}
 
 	if (numsNotAllowed.empty()) {
 		std::random_device rd;
 		std::mt19937 g(rd());
-		std::shuffle(pCards.begin(), pCards.end(), g);
+		std::shuffle(pCards.begin(), pCards.end(), g); // lets gooooooo shuffling
 	}
 
-	a = 0;
+	a = 0; // whatevs
 
-	if (a < pCards.size()) {
+	if (a < pCards.size()) { // check if its valid index
 		playerCard.texture = pCards[a];
 		SDL_Texture* removedCard = pCards[a];
 		pCards.erase(pCards.begin() + a);
 		numsNotAllowed.push_back(a);
-		return removedCard;
+		return removedCard; //returning the removed card to compare in a map and find its card value
 	}
 
-	return nullptr; // Handle the case where 'a' is out of bounds
+	return nullptr; // handle the nullz
 }
 
 
