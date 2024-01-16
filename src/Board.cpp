@@ -1,12 +1,6 @@
 #include "Board.h"
-#include "Presenter.h"
-#include "InputManager.h"
-#include "SoundManager.h"
-#include <vector>
-#include <Card.h>
-#include <string>
-#include "defines.h"
-std::vector<SDL_Texture*> cards = {};
+
+
 Board::Board()
 {
 
@@ -19,6 +13,8 @@ Board::~Board()
 
 void Board::init()
 {
+
+	srand(time(0));
 	
 	
 	string configFile = "boardInit.txt";
@@ -41,7 +37,8 @@ void Board::init()
 	string of_spades = "_of_spades";
 	string currentString = "";
 
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 4; i++) {
+		std::cout << i;
 		if (i == 0) {
 			currentString = of_clubs;
 			
@@ -55,30 +52,40 @@ void Board::init()
 		if (i == 3) {
 			currentString = of_spades;
 		}
-		for (int z = 2; z < 15; z++) {
+		for (int z = 2; z < 14; z++) {
 			string texture_string = to_string(z) + currentString + ".bmp";
-			
-			if(z > 10){
+			if(z > 9){
 				switch (z) {
 				default:
 					break;
 
-				case 11:
+				case 10:
 					texture_string = "ace" + currentString + ".bmp";
 					break;
-				case 12:
+				case 11:
 					texture_string = "jack" + currentString + ".bmp";
 					break;
-				case 13:
+				case 12:
 					texture_string = "king" + currentString + ".bmp";
 					break;
-				case 14:
+				case 13:
 					texture_string = "queen" + currentString + ".bmp";
 					break;
 				}
 			
 			}
+
 			SDL_Texture* texture = loadTexture(CARD_FOLDER + texture_string);
+			if (!texture) {
+				std::cerr << "Failed to load texture: " << texture_string << std::endl;
+			}
+			else {
+				cardsPoints[texture] = texture_string;
+				cards.push_back(texture);
+				std::cout << cards.size() << endl;
+				std::cout << texture_string << endl;
+			}
+			cardsPoints[texture] = texture_string;
 			cards.push_back(texture);
 			std::cout << cards.size() << endl;
 			std::cout << texture_string << endl;
@@ -86,18 +93,27 @@ void Board::init()
 	
 		
 	}
+	
+	player.init();
+	player.loadPlayerCards(cards);
+	
+	
 
 
 }
 
 void Board::update()
 {
-	
+	if (isMouseInRect(InputManager::m_mouseCoor, player.playerCard.rect) && InputManager::isMousePressed()) {
+		player.RemoveFromDeck();
+	}
 }
 
 void Board::draw()
 {
 	drawObject(m_background);
+	player.draw();
+
 	
 }
 

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <fstream>
 #include <SDL.h>
+#include <vector>
+#include <map>
 
 using namespace std;
 
@@ -10,6 +12,9 @@ static string IMG_FOLDER = "img\\";
 static string CONFIG_FOLDER = "config\\";
 static string SOUND_FOLDER = "sound\\";
 static string CARD_FOLDER = "card\\";
+static vector<SDL_Texture*> cards;
+static int playerCount = 0;
+static map<SDL_Texture*, string> cardsPoints; 
 
 struct int2
 {
