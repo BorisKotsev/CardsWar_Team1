@@ -1,6 +1,14 @@
 #pragma once
 
 #include "Engine.h"
+#include "Presenter.h"
+#include "InputManager.h"
+#include "SoundManager.h"
+#include <vector>
+#include <Card.h>
+#include <string>
+#include "defines.h"
+#include "Player.h"
 
 //dali raboti?
 
@@ -14,7 +22,7 @@ public:
 	void update();
 	void draw();
 	void destroy();
-
+	Player player;
 private:
 	SDL_Texture* m_background;
 };

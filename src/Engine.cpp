@@ -10,6 +10,9 @@ SDL_Texture* LoadTexture(string imgPath, SDL_Renderer* renderer)
 
 	if (texture == nullptr)
 	{
+		std::cerr << "FAILURE LOADING TEXTURE!!!!!!!" << endl;
+		std::cout << imgPath;
+		
 		tmpImg = "img\\Null.bmp";
 
 		loadingSurface = SDL_LoadBMP(tmpImg.c_str());
@@ -24,9 +27,8 @@ SDL_Texture* LoadTexture(string imgPath, SDL_Renderer* renderer)
 
 bool isMouseInRect(int2 mouseCoor, SDL_Rect rect)
 {
-	if (mouseCoor.x >= rect.x && mouseCoor.x <= rect.x + rect.w && 
-		mouseCoor.y >= rect.y && mouseCoor.y <= rect.y + rect.h)
-	{
+	SDL_Point mousePosiiton = { mouseCoor.x, mouseCoor.y };
+	if (SDL_PointInRect(&mousePosiiton, &rect)) {
 		return true;
 	}
 
