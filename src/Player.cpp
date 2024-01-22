@@ -8,8 +8,7 @@
 
 void Player::init()
 {
-	playerCount++;	
-	int numLines = 0;
+/*	int numLines = 0;
 	
 	string currentString;
 	string config = CONFIG_FOLDER + "playerCardPos.txt";
@@ -17,14 +16,16 @@ void Player::init()
 	string tmp;
 	stream.open(config);
 	while (numLines < playerCount) {
-		stream >> tmp >> currentStringX >> currentStringY;
-		cout << currentStringX << endl;
-		cout << currentStringY << endl;
+		stream >> tmp >> currentX >> currentY;
+		cout << currentX << endl;
+		cout << currentY << endl;
 		numLines++;
 		
 	}
-	stream.close();
-	
+	stream.close();*/ //mai ne ni trqbva
+	if (playerCount == 1)
+		currentY -= 400;
+	playerCount++;	
 }
 
 void Player::loadPlayerCards(vector<SDL_Texture*> aCards)
@@ -32,17 +33,20 @@ void Player::loadPlayerCards(vector<SDL_Texture*> aCards)
 	for (int i = 0; i < 26; i++)
 	{
 		pCards.push_back(aCards[i]);
+		aCards.erase(aCards.begin()+i);
 	}
 	playerCard.texture = loadTexture(CARD_FOLDER + "B1.bmp");
-	playerCard.rect = { stoi(currentStringX), stoi(currentStringY), 200, 300 };
+	playerCard.rect = { currentX, currentY, 200, 300 };
+
+	// lets gooooooo shuffling
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(pCards.begin(), pCards.end(), g);
 }
 void Player::drawFromDeck()
 {
-	srand(time(0));
-	a = rand() % 25 + 1;	
-	playerCard.texture = pCards[a];
-	playerCard.rect = { stoi(currentStringX), stoi(currentStringY), 200, 300};
-	std::cout << a;
+	playerCard.texture = pCards[0];
+	playerCard.rect = {currentX, currentY, 200, 300};
 }
 
 SDL_Texture* Player::RemoveFromDeck()
@@ -51,23 +55,14 @@ SDL_Texture* Player::RemoveFromDeck()
 		return nullptr; // if empty just return a nullptr
 	}
 
-	if (numsNotAllowed.empty()) {
-		std::random_device rd;
-		std::mt19937 g(rd());
-		std::shuffle(pCards.begin(), pCards.end(), g); // lets gooooooo shuffling
-	}
-
-	a = 0; // whatevs
-
-	if (a < pCards.size()) { // check if its valid index
-		playerCard.texture = pCards[a];
-		SDL_Texture* removedCard = pCards[a];
-		pCards.erase(pCards.begin() + a);
-		numsNotAllowed.push_back(a);
+	//if (a < pCards.size()) { // check if its valid index
+		playerCard.texture = pCards[0];
+		SDL_Texture* removedCard = pCards[0];
+		pCards.erase(pCards.begin());
 		return removedCard; //returning the removed card to compare in a map and find its card value
-	}
+	//}
 
-	return nullptr; // handle the nullz
+	//return nullptr; // handle the nullz
 }
 
 

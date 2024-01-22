@@ -12,8 +12,8 @@
 class Player
 {
 public:
-	string currentStringX;
-	string currentStringY;
+	int currentX = 850;
+	int currentY =741;
 	vector<int> numsNotAllowed;
 	void init();
 	void loadPlayerCards(vector<SDL_Texture*> aCards);
@@ -28,4 +28,5 @@ public:
 
 private:
 
+//>>>>>>> e5922bbc9c882b6a3a70da039d645c46b03456ff
 };
